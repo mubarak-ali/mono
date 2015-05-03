@@ -1,4 +1,8 @@
 *.class
 
-/obj/
-/Debug/
+/waveletclient/waveletclient.app/bin/
+/waveletclient/waveletclient.app/obj/
+/waveletclient/waveletclient.dao/bin/
+/waveletclient/waveletclient.dao/obj/
+/waveletclient/waveletclient.dto/bin/
+/waveletclient/waveletclient.dto/obj/
