@@ -74,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\RestTemplateConfig.cs" />
+    <Compile Include="Criteria\BaseCriteria.cs" />
+    <Compile Include="Criteria\CompanyCriteria.cs" />
     <Compile Include="Criteria\UsersCriteria.cs" />
     <Compile Include="Enum\AppMessageEventEnum.cs" />
     <Compile Include="fmMain.cs" />
@@ -88,8 +90,6 @@
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="JsonMapper\JsonConversion.cs" />
-    <Compile Include="JsonMapper\RemoteUserProfileJsonMapper.cs" />
     <Compile Include="Model\RequestMessage.cs" />
     <Compile Include="Model\ResponseMessage.cs" />
     <Compile Include="Program.cs" />
@@ -97,9 +97,13 @@
     <Compile Include="Session\SystemSession.cs" />
     <Compile Include="Session\UserSession.cs" />
     <Compile Include="Utils\BCryptHasing.cs" />
+    <Compile Include="Utils\DropDownList.cs" />
     <Compile Include="Utils\RestAPI.cs" />
     <EmbeddedResource Include="fmMain.resx">
       <DependentUpon>fmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDashboard.resx">
+      <DependentUpon>frmDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -143,7 +147,6 @@
     <Folder Include="Criteria" />
     <Folder Include="Config" />
     <Folder Include="Model" />
-    <Folder Include="JsonMapper" />
     <Folder Include="Enum" />
     <Folder Include="Utils" />
     <Folder Include="Session" />

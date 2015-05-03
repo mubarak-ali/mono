@@ -34,8 +34,8 @@ namespace waveletclient.app
 		{
 			this.lblCompany = new System.Windows.Forms.Label();
 			this.lblSystem = new System.Windows.Forms.Label();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
-			this.comboBox2 = new System.Windows.Forms.ComboBox();
+			this.ddlCompany = new System.Windows.Forms.ComboBox();
+			this.ddlSystem = new System.Windows.Forms.ComboBox();
 			this.btnNext = new System.Windows.Forms.Button();
 			this.lblUsername = new System.Windows.Forms.Label();
 			this.SuspendLayout();
@@ -58,21 +58,25 @@ namespace waveletclient.app
 			this.lblSystem.TabIndex = 1;
 			this.lblSystem.Text = "Select System";
 			// 
-			// comboBox1
+			// ddlCompany
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(172, 73);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(191, 21);
-			this.comboBox1.TabIndex = 2;
+			this.ddlCompany.FormattingEnabled = true;
+			this.ddlCompany.Location = new System.Drawing.Point(172, 73);
+			this.ddlCompany.Name = "ddlCompany";
+			this.ddlCompany.Size = new System.Drawing.Size(265, 21);
+			this.ddlCompany.Sorted = true;
+			this.ddlCompany.TabIndex = 2;
 			// 
-			// comboBox2
+			// ddlSystem
 			// 
-			this.comboBox2.FormattingEnabled = true;
-			this.comboBox2.Location = new System.Drawing.Point(172, 100);
-			this.comboBox2.Name = "comboBox2";
-			this.comboBox2.Size = new System.Drawing.Size(191, 21);
-			this.comboBox2.TabIndex = 3;
+			this.ddlSystem.FormattingEnabled = true;
+			this.ddlSystem.Items.AddRange(new object[] {
+									"GST",
+									"GL"});
+			this.ddlSystem.Location = new System.Drawing.Point(172, 100);
+			this.ddlSystem.Name = "ddlSystem";
+			this.ddlSystem.Size = new System.Drawing.Size(265, 21);
+			this.ddlSystem.TabIndex = 3;
 			// 
 			// btnNext
 			// 
@@ -82,6 +86,7 @@ namespace waveletclient.app
 			this.btnNext.TabIndex = 4;
 			this.btnNext.Text = "Next";
 			this.btnNext.UseVisualStyleBackColor = true;
+			this.btnNext.Click += new System.EventHandler(this.BtnNextClick);
 			// 
 			// lblUsername
 			// 
@@ -98,8 +103,8 @@ namespace waveletclient.app
 			this.ClientSize = new System.Drawing.Size(529, 309);
 			this.Controls.Add(this.lblUsername);
 			this.Controls.Add(this.btnNext);
-			this.Controls.Add(this.comboBox2);
-			this.Controls.Add(this.comboBox1);
+			this.Controls.Add(this.ddlSystem);
+			this.Controls.Add(this.ddlCompany);
 			this.Controls.Add(this.lblSystem);
 			this.Controls.Add(this.lblCompany);
 			this.MaximizeBox = false;
@@ -110,8 +115,8 @@ namespace waveletclient.app
 		}
 		private System.Windows.Forms.Label lblUsername;
 		private System.Windows.Forms.Button btnNext;
-		private System.Windows.Forms.ComboBox comboBox2;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox ddlSystem;
+		private System.Windows.Forms.ComboBox ddlCompany;
 		private System.Windows.Forms.Label lblSystem;
 		private System.Windows.Forms.Label lblCompany;
 	}

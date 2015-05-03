@@ -32,12 +32,18 @@ namespace waveletclient.app
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.SuspendLayout();
 			// 
 			// frmDashboard
 			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Text = "frmDashboard";
+			this.ClientSize = new System.Drawing.Size(673, 464);
 			this.Name = "frmDashboard";
+			this.Text = "Dashboard";
+			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.Load += new System.EventHandler(this.FrmDashboardLoad);
+			this.ResumeLayout(false);
 		}
 	}
 }

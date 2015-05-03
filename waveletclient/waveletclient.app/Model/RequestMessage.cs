@@ -4,7 +4,7 @@
  */
 using System;
 using waveletclient.app.Enum;
-using waveletclient.app.JsonMapper;
+using waveletclient.dao.JsonMapper;
 
 namespace waveletclient.app.Model
 {

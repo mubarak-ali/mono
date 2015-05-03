@@ -6,7 +6,7 @@ using System;
 using Spring.Http;
 using Spring.Rest.Client;
 using waveletclient.app.Config;
-using waveletclient.app.JsonMapper;
+using waveletclient.dao.JsonMapper;
 using waveletclient.app.Model;
 using waveletclient.app.Session;
 
