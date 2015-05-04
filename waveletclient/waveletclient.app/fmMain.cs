@@ -12,7 +12,9 @@ using waveletclient.app.Criteria;
 using waveletclient.app.Model;
 using waveletclient.app.Session;
 using waveletclient.app.Utils;
+using waveletclient.app.Enum;
 using waveletclient.dao;
+using waveletclient.dao.JsonMapper;
 using waveletclient.dto;
 
 namespace waveletclient.app
@@ -60,10 +62,33 @@ namespace waveletclient.app
 			SystemSession.company = ddl.text;
 			SystemSession.companyGuid = ddl.value;
 			SystemSession.systemId = ddlSystem.Text;
-			 
-			 frmDashboard dashboard = new frmDashboard();
-			 this.Hide();
-			 dashboard.Show();
+			
+			CreateCompany();
+			frmDashboard dashboard = new frmDashboard();
+			this.Hide();
+			dashboard.Show();
 		}
+		
+		
+		#region Function for testing rest call to create a company.
+		private void CreateCompany() {
+			
+			CompanyDao dao = new CompanyDao();
+			dao.guid = Guid.NewGuid().ToString().ToUpper();
+			dao.abbreviation = "MUB_TEST";
+			dao.name = "Mubarak_TEST";
+			dao.code = "TBH";
+			dao.status = "A";
+			dao.currencyCode = "MYY";
+			dao.description = "This is for spring.net testing...";
+			
+			RequestMessage reqMsg = new RequestMessage();
+			reqMsg.type = AppMessageEventEnum.EnumEventType.CREATE_COMPANY;
+			reqMsg.documentJson = JsonConvert.SerializeObject(dao);
+			reqMsg.remoteTimeCreate = DateTime.Now;
+			
+			Boolean send = RestAPI.sendPOST("/wavelet-ws/rest/createmessage", reqMsg);
+		}
+		#endregion
 	}
 }

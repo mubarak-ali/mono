@@ -46,7 +46,8 @@ namespace waveletclient.app.Utils
 				profileJson.system = SystemSession.systemId;
 			}
 			
-			reqMsg.setRemoteUserProfileJson(profileJson);
+//			reqMsg.setRemoteUserProfileJson(profileJson);
+			reqMsg.remoteUserProfileJson = profileJson;
 			
 			var responseEntity = new HttpEntity(reqMsg);
 			HttpResponseMessage<RequestMessage> response = restTemplate.Exchange<RequestMessage>(service, HttpMethod.POST, responseEntity);

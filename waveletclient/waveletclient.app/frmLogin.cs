@@ -10,9 +10,10 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using waveletclient.app.Criteria;
 using waveletclient.app.Model;
-using waveletclient.app.Utils;
 using waveletclient.app.Session;
+using waveletclient.app.Utils;
 using waveletclient.dao;
+using waveletclient.dao.JsonMapper;
 using waveletclient.dto;
 
 namespace waveletclient.app
@@ -29,61 +30,111 @@ namespace waveletclient.app
 		
 		public frmLogin()
 		{
-			InitializeComponent();	
+			InitializeComponent();
 		}
 		
 		void BtnLoginClick(object sender, EventArgs e)
 		{
 			Boolean validate = false;
-			UsersCriteria criteria = new UsersCriteria();
-			criteria.username = txtUsername.Text;
-			ResponseMessage users = RestAPI.get(GET_USERS, criteria);
-			List<UsersDto> usersDto = JsonConvert.DeserializeObject<List<UsersDto>>(users.dataJson);
+			Boolean passwordValidate = false;
 			
-			List<AppLoginDao> user = new List<AppLoginDao>();
-			foreach (var dto in usersDto) {
+			String username = txtUsername.Text;
+			String password = txtPassword.Text;
+			
+			if (username != "" && password != "") {
 				
-				AppLoginDao dao = new AppLoginDao();
-				dao = dto.appLoginDao;
-				user.Add(dao);
+				UsersCriteria criteria = new UsersCriteria();
+				criteria.username = txtUsername.Text;
+				ResponseMessage users = RestAPI.get(GET_USERS, criteria);
+				List<UsersDto> usersDto = JsonConvert.DeserializeObject<List<UsersDto>>(users.dataJson);
+				
+				if (usersDto.Count > 0) {
+					
+					List<AppLoginDao> user = new List<AppLoginDao>();
+					foreach (var dto in usersDto) {
+						
+						AppLoginDao dao = new AppLoginDao();
+						dao = dto.appLoginDao;
+						user.Add(dao);
+					}
+					
+					if (user.Count > 1) {
+						
+						validate = false;
+						MessageBox.Show("Two users found with the same username, please try again.");
+					}
+					else if (user.Count < 0) {
+						
+						criteria = new UsersCriteria();
+						criteria.email = txtUsername.Text;
+						ResponseMessage userEmail = RestAPI.get(GET_USERS, criteria);
+						usersDto = new List<UsersDto>();
+						usersDto = JsonConvert.DeserializeObject<List<UsersDto>>(users.dataJson);
+						
+						List<AppLoginDao> userDao = new List<AppLoginDao>();
+						foreach (var dto in usersDto) {
+							
+							AppLoginDao dao = new AppLoginDao();
+							dao = dto.appLoginDao;
+							userDao.Add(dao);
+						}
+						
+						if (userDao.Count < 0) {
+							
+							validate = false;
+							MessageBox.Show("No user found with this username, please try again.");
+						}
+						else if (userDao.Count > 1) {
+							
+							validate = false;
+							MessageBox.Show("Two users found with the same username, please try again.");
+						}
+						else if (userDao.Count == 1) {
+							
+							foreach (var dao in userDao) {
+								
+								passwordValidate = BCryptHasing.ValidatePassword(txtPassword.Text, dao.password);
+							}
+							
+							if (passwordValidate == true) {
+								
+								validate = Authentication(usersDto);
+							}
+							else {
+								
+								validate = false;
+								MessageBox.Show("Password is not correct, please try again.");
+							}
+						}
+					}
+					else if (user.Count == 1) {
+						
+						foreach (var dao in user) {
+							
+							passwordValidate = BCryptHasing.ValidatePassword(txtPassword.Text, dao.password);
+						}
+						
+						if (passwordValidate == true) {
+							
+							validate = Authentication(usersDto);
+						}
+						else {
+							
+							validate = false;
+							MessageBox.Show("Password is not correct, please try again.");
+						}
+					}
+				}
+				else {
+					
+					validate = false;
+					MessageBox.Show("No user found please try again!");
+				}
 			}
-			
-			if (user.Count > 1) {
+			else {
 				
 				validate = false;
-			}
-			else if (user.Count < 0) {
-				
-				criteria = new UsersCriteria();
-				criteria.email = txtUsername.Text;
-				ResponseMessage userEmail = RestAPI.get(GET_USERS, criteria);
-				usersDto = new List<UsersDto>();
-				usersDto = JsonConvert.DeserializeObject<List<UsersDto>>(users.dataJson);
-				
-				List<AppLoginDao> userDao = new List<AppLoginDao>();
-				foreach (var dto in usersDto) {
-					
-					AppLoginDao dao = new AppLoginDao();
-					dao = dto.appLoginDao;
-					userDao.Add(dao);
-				}
-				
-				if (userDao.Count < 0) {
-					
-					validate = false;
-				}
-				else if (userDao.Count > 1) {
-					
-					validate = false;
-				}
-				else if (userDao.Count == 1) {
-					
-					validate = Authentication(usersDto);
-				}
-			}
-			else if (user.Count == 1) {
-				
-				validate = Authentication(usersDto);
+				MessageBox.Show("Please insert username and password.");
 			}
 			
 			if (validate == true) {
@@ -92,11 +143,6 @@ namespace waveletclient.app
 				this.Hide();
 				mainForm.Show();
 			}
-			else {
-				
-				MessageBox.Show("The user credentials are not correct, please try again.");
-			}
-			
 		}
 		
 		#region Authentication function.
@@ -207,6 +253,7 @@ namespace waveletclient.app
 			return validate;
 		}
 		#endregion
+		
 		
 	}
 }

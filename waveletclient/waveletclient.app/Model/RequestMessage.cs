@@ -16,45 +16,49 @@ namespace waveletclient.app.Model
 		public AppMessageEventEnum.EnumEventType type { get; set; }
 		public Int32 priority { get; set; }
 		public String localLoginGuid { get; set; }
-		public String localTimeMessage { get; set; }
-		public String localTimeCreate { get; set; }
-		public String localTimeUpdate { get; set; }
-		public String localTimeDelete { get; set; }
+		public DateTime localTimeMessage { get; set; }
+		public DateTime localTimeCreate { get; set; }
+		public DateTime localTimeUpdate { get; set; }
+		public DateTime localTimeDelete { get; set; }
 		public String localStatus { get; set; }
 		public String remoteIdDevice { get; set; }
 		public String remoteGuidUser { get; set; }
 		public String remoteIdUser { get; set; }
 		public String remoteGuidMessage { get; set; }
-		public String remoteTimeCreate { get; set; }
+		public DateTime remoteTimeCreate { get; set; }
 		public String remoteDocumentId { get; set; }
 		public String documentJson { get; set; }
 		public String remarks { get; set; }
 		public String status { get; set; }
 		
-		private RemoteUserProfileJsonMapper remoteUserProfileJson;
-		public void setRemoteUserProfileJson(Object profileJson)
+		private RemoteUserProfileJsonMapper _remoteUserProfileJson;
+		public RemoteUserProfileJsonMapper remoteUserProfileJson
 		{
+			get { return this._remoteUserProfileJson; }
+			set { this._remoteUserProfileJson = setRemoteUserProfileJson(value); }
+		}
+		private RemoteUserProfileJsonMapper setRemoteUserProfileJson(Object profileJson)
+		{
+			
+			RemoteUserProfileJsonMapper obj = new RemoteUserProfileJsonMapper();
 			
 			if (profileJson is RemoteUserProfileJsonMapper) {
 				
-				this.remoteUserProfileJson = profileJson as RemoteUserProfileJsonMapper;
+				obj = profileJson as RemoteUserProfileJsonMapper;
 			}
 			else if (profileJson is String) {
 				
-				profileJson = JsonConversion.toRemoteUserProfileJson((String) profileJson);
+				obj = JsonConversion.toRemoteUserProfileJson((String) profileJson);
 			}
 			else if (profileJson == null) {
 				
-				this.remoteUserProfileJson = new RemoteUserProfileJsonMapper();
+				obj = new RemoteUserProfileJsonMapper();
 			}
-			else {
+			return obj;
+//			else {
 				
-				throw new InvalidOperationException("Invalid parameter.");
-			}
-		}
-		public RemoteUserProfileJsonMapper getRemoteUserProfileJson() {
-			
-			return this.remoteUserProfileJson;
+//				throw new InvalidOperationException("Invalid parameter.");
+//			}
 		}
 		
 		public RequestMessage()
