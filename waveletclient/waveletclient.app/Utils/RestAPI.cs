@@ -46,13 +46,13 @@ namespace waveletclient.app.Utils
 				profileJson.system = SystemSession.systemId;
 			}
 			
-//			reqMsg.setRemoteUserProfileJson(profileJson);
 			reqMsg.remoteUserProfileJson = profileJson;
+			reqMsg.remoteTimeCreate = DateTime.Now.ToString();
 			
 			var responseEntity = new HttpEntity(reqMsg);
 			HttpResponseMessage<RequestMessage> response = restTemplate.Exchange<RequestMessage>(service, HttpMethod.POST, responseEntity);
 			
-			if (response.StatusCode.Equals("200")) {
+			if (response.StatusCode.ToString() == "OK") {
 				
 				return true;
 			}

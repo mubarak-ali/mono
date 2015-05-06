@@ -16,16 +16,16 @@ namespace waveletclient.app.Model
 		public AppMessageEventEnum.EnumEventType type { get; set; }
 		public Int32 priority { get; set; }
 		public String localLoginGuid { get; set; }
-		public DateTime localTimeMessage { get; set; }
-		public DateTime localTimeCreate { get; set; }
-		public DateTime localTimeUpdate { get; set; }
-		public DateTime localTimeDelete { get; set; }
+		public String localTimeMessage { get; set; }
+		public String localTimeCreate { get; set; }
+		public String localTimeUpdate { get; set; }
+		public String localTimeDelete { get; set; }
 		public String localStatus { get; set; }
 		public String remoteIdDevice { get; set; }
 		public String remoteGuidUser { get; set; }
 		public String remoteIdUser { get; set; }
 		public String remoteGuidMessage { get; set; }
-		public DateTime remoteTimeCreate { get; set; }
+		public String remoteTimeCreate { get; set; }
 		public String remoteDocumentId { get; set; }
 		public String documentJson { get; set; }
 		public String remarks { get; set; }

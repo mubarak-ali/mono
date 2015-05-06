@@ -38,6 +38,7 @@ namespace waveletclient.app
 			this.ddlSystem = new System.Windows.Forms.ComboBox();
 			this.btnNext = new System.Windows.Forms.Button();
 			this.lblUsername = new System.Windows.Forms.Label();
+			this.lblDate = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// lblCompany
@@ -96,11 +97,20 @@ namespace waveletclient.app
 			this.lblUsername.Size = new System.Drawing.Size(100, 23);
 			this.lblUsername.TabIndex = 5;
 			// 
+			// lblDate
+			// 
+			this.lblDate.AutoSize = true;
+			this.lblDate.Location = new System.Drawing.Point(390, 274);
+			this.lblDate.Name = "lblDate";
+			this.lblDate.Size = new System.Drawing.Size(0, 13);
+			this.lblDate.TabIndex = 6;
+			// 
 			// fmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(529, 309);
+			this.Controls.Add(this.lblDate);
 			this.Controls.Add(this.lblUsername);
 			this.Controls.Add(this.btnNext);
 			this.Controls.Add(this.ddlSystem);
@@ -112,7 +122,9 @@ namespace waveletclient.app
 			this.Text = "Main Form";
 			this.Load += new System.EventHandler(this.FmMainLoad);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 		}
+		private System.Windows.Forms.Label lblDate;
 		private System.Windows.Forms.Label lblUsername;
 		private System.Windows.Forms.Button btnNext;
 		private System.Windows.Forms.ComboBox ddlSystem;
